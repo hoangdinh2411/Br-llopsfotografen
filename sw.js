@@ -1,10 +1,10 @@
 const cacheName = 'Bröllopsfotografen';
 const cacheAssets = [
-  '/src/index.html',
-  '/src/styles.css',
-  '/src/script.js',
-  '/src/assets/icon-camera.svg',
-  '/src/assets/icon-gallery.svg',
+  '/index.html',
+  '/styles.css',
+  '/script.js',
+  '/assets/icon-camera.svg',
+  '/assets/icon-gallery.svg',
 ];
 
 self.addEventListener('install', (e) => {
