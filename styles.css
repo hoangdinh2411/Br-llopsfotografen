@@ -48,6 +48,8 @@ header {
   font-style: normal;
   display: flex;
   margin: auto;
+  overflow-y: auto;
+
 }
 .content.open-gallery{
   margin: 80px auto ;
@@ -91,6 +93,7 @@ header {
 
 #gallery {
   width: 100%;
+  overflow-y: auto;
   flex-wrap: wrap;
   flex-shrink: inherit;
 }
@@ -127,10 +130,12 @@ header {
 
 
 button {
+  margin-top: auto;
   position: absolute;
   width: 342px;
   height: 70px;
-  left: 24px;
+  left: 50%;
+  transform: translateX(-50%);
   bottom: 29px;
   display: flex;
   flex-direction: row;
