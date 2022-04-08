@@ -8,7 +8,7 @@ window.addEventListener('load', async () => {
   }
 });
 const API_URL =
-  'https://api.jsonbin.io/v3/b/625066e27b69e806cf4ac983';
+  'https://api.jsonbin.io/b/62508786d20ace068f959826';
 const KEY_MASTER_API =
   '$2b$10$Vk7WtdXZWVdBZZOg5xtZ7efgP2Vzcm7.0xFShfs68AoRlvxwyv1aW';
 
