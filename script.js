@@ -3,20 +3,18 @@ window.addEventListener('load', async () => {
     try {
       await navigator.serviceWorker.register('/sw.js');
     } catch (error) {
-      console.log('dead')
+      console.log('dead');
     }
   }
+  window.addEventListener('online', () => {
+    console.log('online');
+  });
+  window.addEventListener('offline', () => {
+    console.log('offline');
+  });
 });
 
-
-window.addEventListener('online',()=>{
-  console.log('online')
-})
-window.addEventListener('offline',()=>{
-  console.log('offline')
-})
-
-console.log()
+console.log();
 const API_URL =
   'https://api.jsonbin.io/v3/b/62508786d20ace068f959826';
 const KEY_MASTER_API =
@@ -78,18 +76,23 @@ const App = {
       '#captured-image img'
     );
 
-     canvasCTX.drawImage(
+    canvasCTX.drawImage(
       this.els.cameraWrapper,
       0,
       0,
       canvasWrapper.width,
       canvasWrapper.height
     );
-    const imageData = canvasCTX.getImageData(0,0,canvasWrapper.width, canvasWrapper.height)
-    var filtered = ImageFilters.Sepia(imageData)
-    canvasCTX.putImageData(filtered, 0, 0 )
+    const imageData = canvasCTX.getImageData(
+      0,
+      0,
+      canvasWrapper.width,
+      canvasWrapper.height
+    );
+    var filtered = ImageFilters.Sepia(imageData);
+    canvasCTX.putImageData(filtered, 0, 0);
     let data = canvasWrapper.toDataURL('image/png');
-    console.log(data)
+    console.log(data);
     App.images.push({
       id: this.images.length + 1,
       imgData: data,
