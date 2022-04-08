@@ -5,6 +5,7 @@ const cacheAssets = [
   '/script.js',
   '/assets/icon-camera.svg',
   '/assets/icon-gallery.svg',
+  '/imagefilters.js'
 ];
 
 self.addEventListener('install', (e) => {
