@@ -3,7 +3,7 @@ window.addEventListener('load', async () => {
     try {
       await navigator.serviceWorker.register('/sw.js');
     } catch (error) {
-      console.log(error);
+      console.log('dead')
     }
   }
 });
