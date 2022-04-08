@@ -8,6 +8,14 @@ window.addEventListener('load', async () => {
   }
 });
 
+
+window.addEventListener('online',()=>{
+  console.log('online')
+})
+window.addEventListener('offline',()=>{
+  console.log('offline')
+})
+
 console.log()
 const API_URL =
   'https://api.jsonbin.io/v3/b/62508786d20ace068f959826';
