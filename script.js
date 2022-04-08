@@ -6,12 +6,7 @@ window.addEventListener('load', async () => {
       console.log('dead');
     }
   }
-  window.addEventListener('online', () => {
-    console.log('online');
-  });
-  window.addEventListener('offline', () => {
-    console.log('offline');
-  });
+  console.log(window.navigator.onLine)
 });
 
 console.log();
