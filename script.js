@@ -5,9 +5,13 @@ window.addEventListener('load', async () => {
     } catch (error) {
       console.log('dead');
     }
+    if(navigator.onLine){
+      console.log('online')
+    }else{
+      console.log('offline')
+    }
   }
 });
-console.log(navigator.onLine)
 
 const API_URL =
   'https://api.jsonbin.io/v3/b/62508786d20ace068f959826';
