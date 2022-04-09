@@ -1,25 +1,25 @@
 window.addEventListener('load', async () => {
+  if (await checkPermissions()) {
+    if (navigator.onLine) {
+      showNotification(
+        'Thank you for using the app',
+        'Take some nice photos',
+        4000
+      );
+    } else {
+      showNotification(
+        'Message error',
+        'You have lost network connectivity. Please try again later'
+      );
+    }
+  } else {
+    await requestPermission();
+  }
   if ('serviceWorker' in navigator) {
     try {
       await navigator.serviceWorker.register('/sw.js');
     } catch (error) {
       console.log('dead');
-    }
-    if (await checkPermissions()) {
-      if (navigator.onLine) {
-        showNotification(
-          'Thank you for using the app',
-          'Take some nice photos',
-          4000
-        );
-      } else {
-        showNotification(
-          'Message error',
-          'You have lost network connectivity. Please try again later'
-        );
-      }
-    } else {
-      await requestPermission();
     }
   }
 });
