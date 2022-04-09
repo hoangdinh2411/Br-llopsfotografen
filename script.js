@@ -30,20 +30,23 @@ window.addEventListener('load', async () => {
     } catch (error) {
       console.log('dead');
     }
-
-    if(await checkPermissions()){
+    console.log(navigator.onLine)
+    // if(await checkPermissions()){
       if(navigator.onLine){
-        showNotification('Thank you for using the app', 'Take some nice photos', 4000)
+        console.log('on')
+        // showNotification('Thank you for using the app', 'Take some nice photos', 4000)
       }else{
-        showNotification('Message error', 'You have lost network connectivity. Please try again later')
+        console.log('<off></off>')
+        // showNotification('Message error', 'You have lost network connectivity. Please try again later')
       }
-    }else{
-      await requestPermission()
-    }
+    // }else{
+    //   await requestPermission()
+    // }
   }
 
 
 });
+
 
 const API_URL =
   'https://api.jsonbin.io/v3/b/62508786d20ace068f959826';
