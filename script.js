@@ -1,28 +1,3 @@
-async function checkPermissions(){
-  if(Notification.permission === 'granted'){
-    return true
-  }
-  return false
-}
-
-async function requestPermission(){
-  let resp =  Notification.requestPermission();
-
-}
-
-function showNotification(heading, mess,timeout){
-  const n = new  Notification(heading, {
-    body: mess
-
-  })
-
-  timeout ? 
-  setTimeout(()=>{
-    n.close()
-  }, timeout)
-  : null 
-}
-
 window.addEventListener('load', async () => {
   if ('serviceWorker' in navigator) {
     try {
@@ -30,23 +5,46 @@ window.addEventListener('load', async () => {
     } catch (error) {
       console.log('dead');
     }
-    console.log(navigator.onLine)
-    // if(await checkPermissions()){
-      if(navigator.onLine){
-        console.log('on')
-        // showNotification('Thank you for using the app', 'Take some nice photos', 4000)
-      }else{
-        console.log('<off></off>')
-        // showNotification('Message error', 'You have lost network connectivity. Please try again later')
+    if (await checkPermissions()) {
+      if (navigator.onLine) {
+        showNotification(
+          'Thank you for using the app',
+          'Take some nice photos',
+          4000
+        );
+      } else {
+        showNotification(
+          'Message error',
+          'You have lost network connectivity. Please try again later'
+        );
       }
-    // }else{
-    //   await requestPermission()
-    // }
+    } else {
+      await requestPermission();
+    }
   }
-
-
 });
+async function checkPermissions() {
+  if (Notification.permission === 'granted') {
+    return true;
+  }
+  return false;
+}
 
+async function requestPermission() {
+  let resp = Notification.requestPermission();
+}
+
+function showNotification(heading, mess, timeout) {
+  const n = new Notification(heading, {
+    body: mess,
+  });
+
+  timeout
+    ? setTimeout(() => {
+        n.close();
+      }, timeout)
+    : null;
+}
 
 const API_URL =
   'https://api.jsonbin.io/v3/b/62508786d20ace068f959826';
