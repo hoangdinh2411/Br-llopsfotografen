@@ -19,11 +19,13 @@ const App = {
     video: true,
     audio: false,
   },
+  selectedFilter: '',
   mediaStream: null,
   els: {
     galleryIcon: document.querySelector('.icon-gallery'),
     cameraIcon: document.querySelector('.icon-camera'),
     pages: document.querySelectorAll('section'),
+    filters: document.querySelector('select'),
     captureBtn: document.getElementById('captureImage'),
     goToCameraBtn: document.getElementById('goToCamera'),
     content: document.querySelector('.content'),
@@ -32,8 +34,12 @@ const App = {
     // camera
     cameraWrapper: document.querySelector('video'),
 
-    // gallery
+    //canvas
+    canvasWrapper: document.querySelector('canvas'),
     galleryPage: document.querySelector('#gallery'),
+    capturedImage: document.querySelector(
+      '#captured-image img'
+    ),
   },
 
   startStream() {
@@ -63,34 +69,48 @@ const App = {
   captureImage() {
     //canvas
 
-    const canvasWrapper = document.querySelector('canvas');
-    const canvasCTX = canvasWrapper.getContext('2d');
-    const capturedImage = document.querySelector(
-      '#captured-image img'
-    );
+    const canvasCTX =
+      this.els.canvasWrapper.getContext('2d');
 
     canvasCTX.drawImage(
       this.els.cameraWrapper,
       0,
       0,
-      canvasWrapper.width,
-      canvasWrapper.height
+      this.els.canvasWrapper.width,
+      this.els.canvasWrapper.height
     );
-    const imageData = canvasCTX.getImageData(
+    let imageData = canvasCTX.getImageData(
       0,
       0,
-      canvasWrapper.width,
-      canvasWrapper.height
+      this.els.canvasWrapper.width,
+      this.els.canvasWrapper.height
     );
-    var filtered = ImageFilters.Sepia(imageData);
-    canvasCTX.putImageData(filtered, 0, 0);
-    let data = canvasWrapper.toDataURL('image/png');
-    console.log(data);
+    // 1 . select a filter
+    // 2 : use Imagefilter here
+    let filtered;
+    if (this.selectedFilter !== '') {
+      filtered =
+        ImageFilters[this.selectedFilter](imageData);
+    }
+
+    // 3 check if use dont select any filter , show original image 
+    //else if a filter was selected, take filtered image and show up
+
+    //
+    canvasCTX.putImageData(
+      this.selectedFilter !== '' && filtered
+        ? filtered
+        : imageData,
+      0,
+      0
+    );
+    let data =
+      this.els.canvasWrapper.toDataURL('image/png');
     App.images.push({
       id: this.images.length + 1,
       imgData: data,
     });
-    capturedImage.setAttribute('src', data);
+    this.els.capturedImage.setAttribute('src', data);
 
     App.setData();
   },
@@ -166,12 +186,29 @@ const App = {
       App.els.pages.forEach((page) => {
         if (page.id === 'camera') {
           page.classList.add('active');
+
           App.startStream();
         } else {
           page.classList.remove('active');
         }
       });
     });
+
+    this.els.filters.addEventListener('click', () => {
+      const options = document.querySelectorAll('option');
+      App.selectedFilter =
+        options[this.els.filters.selectedIndex].value;
+    });
+
+    this.els.filters.innerHTML = Object.keys(ImageFilters)
+      .map((key) => {
+        return `
+        <option value=${key === 'utils' ? '' : key}>${
+          key === 'utils' ? 'Välj a redigering ' : key
+        }</option>
+      `;
+      })
+      .join('');
   },
 
   async fetchingData() {

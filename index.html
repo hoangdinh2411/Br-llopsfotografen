@@ -9,12 +9,11 @@
     />
     <title>Document</title>
     <link rel="stylesheet" href="styles.css" />
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="manifest.json" />
     <script
       type="text/javascript"
       src="imagefilters.js"
     ></script>
-
   </head>
   <body>
     <main class="main">
@@ -29,6 +28,8 @@
       <section class="content">
         <!-- Camera -->
         <section class="active" id="camera">
+          <select></select>
+
           <video autoplay height="100%"></video>
           <button id="captureImage">
             Föreviga ett ögonblick
@@ -37,8 +38,9 @@
         <!--  captured image -->
 
         <section id="captured-image">
-          <canvas ></canvas>
+          <canvas></canvas>
           <img />
+
           <button id="goToCamera">
             Fånga ett ögonblick
           </button>
